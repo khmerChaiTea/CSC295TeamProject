@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace CSC295TeamProject
 {
-    public class DisjointSet
-    {
+    public class DisjointSet {
         private int[] parent;   // Array to store parent of each element
         private int[] rank;     // Array to store rank (or depth) of trees
 
-        public DisjointSet(int size)
-        {
+        public DisjointSet(int size) {
             parent = new int[size];   // Initialize parent array
             rank = new int[size];     // Initialize rank array
 
@@ -24,8 +22,7 @@ namespace CSC295TeamProject
             }
         }
 
-        public int Find(int x)
-        {
+        public int Find(int x) {
             if (parent[x] != x)
             {
                 parent[x] = Find(parent[x]);    // Path compression: set parent to root
@@ -33,34 +30,28 @@ namespace CSC295TeamProject
             return parent[x];   // Return the root of the set containing x
         }
 
-        public void Union(int x, int y)
-        {
+        public void Union(int x, int y) {
             int rootX = Find(x);    // Find root of x
             int rootY = Find(y);    // Find root of y
 
-            if (rootX != rootY)     // If x and y are not already in the same set
-            {
-                if (rank[rootX] > rank[rootY])
-                {
+            // If x and y are not already in the same set
+            if (rootX != rootY) {
+                if (rank[rootX] > rank[rootY]) {
                     parent[rootY] = rootX;   // Attach smaller tree (rootY) under rootX
                 }
-                else if (rank[rootX] < rank[rootY])
-                {
+                else if (rank[rootX] < rank[rootY]) {
                     parent[rootX] = rootY;   // Attach smaller tree (rootX) under rootY
                 }
-                else
-                {
+                else {
                     parent[rootY] = rootX;   // Attach rootY under rootX (arbitrary choice)
                     rank[rootX]++;          // Increase rank of rootX
                 }
             }
         }
 
-        public void PrintSets()
-        {
+        public void PrintSets() {
             Console.WriteLine("Current sets:");
-            for (int i = 0; i < parent.Length; i++)
-            {
+            for (int i = 0; i < parent.Length; i++) {
                 Console.WriteLine($"Element {i}: Root = {Find(i)}");
             }
             Console.WriteLine();
