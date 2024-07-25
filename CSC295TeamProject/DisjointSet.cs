@@ -55,5 +55,15 @@ namespace CSC295TeamProject
                 }
             }
         }
+
+        public void PrintSets()
+        {
+            Console.WriteLine("Current sets:");
+            for (int i = 0; i < parent.Length; i++)
+            {
+                Console.WriteLine($"Element {i}: Root = {Find(i)}");
+            }
+            Console.WriteLine();
+        }
     }
 }
